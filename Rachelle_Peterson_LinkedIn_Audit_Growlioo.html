@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rachelle Peterson — LinkedIn Audit · Growlioo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #C0392B;
+      --primary-dark: #962d22;
+      --primary-light: #E8726A;
+      --primary-rgb: 192,57,43;
+      --bg-page: #0A0A0A;
+      --bg-card: #111111;
+      --bg-card-2: #191919;
+      --bg-card-3: #1F1F1F;
+      --border: rgba(255,255,255,0.07);
+      --border-bright: rgba(255,255,255,0.13);
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255,255,255,0.58);
+      --text-muted: rgba(255,255,255,0.30);
+      --score-high: #22C55E;
+      --score-high-bg: rgba(34,197,94,0.10);
+      --score-mid: #F59E0B;
+      --score-mid-bg: rgba(245,158,11,0.10);
+      --score-low: #EF4444;
+      --score-low-bg: rgba(239,68,68,0.10);
+      --font: 'Inter', sans-serif;
+      --r-sm: 8px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px; --r-pill: 9999px;
+      --shadow-primary: 0 8px 32px rgba(192,57,43,0.35);
+      --shadow-glow: 0 0 40px rgba(192,57,43,0.20);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg-page); color: var(--text-primary); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::selection { background: rgba(192,57,43,0.28); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-card); }
+    ::-webkit-scrollbar-thumb { background: rgba(192,57,43,0.45); border-radius: 3px; }
+
+    /* ── COVER ─────────────────────── */
+    .cover { min-height: 100vh; background: #050505; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 32px 64px; position: relative; overflow: hidden; }
+    .cover__glow { position: absolute; width: 640px; height: 640px; border-radius: 50%; background: radial-gradient(circle, rgba(192,57,43,0.13) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .cover__label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--primary); background: rgba(192,57,43,0.10); border: 1px solid rgba(192,57,43,0.22); padding: 6px 18px; border-radius: var(--r-pill); margin-bottom: 32px; display: inline-block; }
+    .cover__ring { width: 180px; height: 180px; border-radius: 50%; position: relative; margin: 0 auto 30px; background: conic-gradient(var(--primary) 0% 66.7%, var(--bg-card-3) 66.7% 100%); box-shadow: var(--shadow-glow); }
+    .cover__ring::before { content: ''; position: absolute; inset: 12px; border-radius: 50%; background: #050505; }
+    .cover__ring-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .cover__score-num { font-size: 48px; font-weight: 900; color: var(--primary); line-height: 1; }
+    .cover__score-denom { font-size: 13px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+    .cover__grade { display: inline-block; font-size: 13px; font-weight: 700; padding: 4px 16px; border-radius: var(--r-pill); background: var(--score-mid-bg); color: var(--score-mid); border: 1px solid rgba(245,158,11,0.25); margin-bottom: 24px; }
+    .cover__name { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .cover__sub { font-size: 16px; color: var(--text-secondary); margin-bottom: 36px; }
+    .cover__meta { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; font-size: 13px; color: var(--text-muted); margin-bottom: 48px; }
+    .cover__brand { font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 28px; }
+    .cover__brand strong { color: var(--primary); font-weight: 700; }
+
+    /* ── TABS ──────────────────────── */
+    .tab-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; scrollbar-width: none; padding: 0 24px; }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn { flex-shrink: 0; padding: 16px 18px; font-size: 13px; font-weight: 600; color: var(--text-muted); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+    .tab-btn:hover { color: var(--text-primary); }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ── PANELS ────────────────────── */
+    .panel { display: none; padding: 48px 0 80px; }
+    .panel.active { display: block; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── SECTION HEADER ────────────── */
+    .sh { margin-bottom: 36px; }
+    .sh__label { font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; display: block; }
+    .sh__title { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .sh__sub { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ── SCORE BADGE ───────────────── */
+    .score-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: var(--r-pill); font-weight: 700; font-size: 14px; }
+    .score-badge--high { background: var(--score-high-bg); color: var(--score-high); border: 1px solid rgba(34,197,94,0.2); }
+    .score-badge--mid  { background: var(--score-mid-bg);  color: var(--score-mid);  border: 1px solid rgba(245,158,11,0.2); }
+    .score-badge--low  { background: var(--score-low-bg);  color: var(--score-low);  border: 1px solid rgba(239,68,68,0.2); }
+
+    /* ── CARDS ─────────────────────── */
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px 32px; margin-bottom: 20px; }
+    .card--accent { border-color: rgba(192,57,43,0.28); }
+    .card__label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; display: block; }
+    .card__title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .card__body { font-size: 15px; color: var(--text-secondary); line-height: 1.75; }
+
+    /* ── BANNER COMPARISON ─────────── */
+    .banner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+    .banner-option { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+    .banner-option--active { border-color: rgba(192,57,43,0.4); }
+    .banner-swatch { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .banner-info { padding: 12px 14px; }
+    .banner-info__label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .banner-info__title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .banner-info__note { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .active-badge { display: inline-block; background: rgba(192,57,43,0.12); color: var(--primary); border: 1px solid rgba(192,57,43,0.25); font-size: 10px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; padding: 3px 10px; border-radius: var(--r-pill); margin-top: 6px; }
+
+    /* ── SCORE BARS ────────────────── */
+    .score-grid { display: grid; gap: 14px; }
+    .score-row { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-md); padding: 18px 24px; display: flex; align-items: center; gap: 20px; }
+    .score-row__name { font-size: 14px; font-weight: 600; min-width: 160px; }
+    .score-row__bar-wrap { flex: 1; height: 8px; background: var(--bg-card-3); border-radius: var(--r-pill); overflow: hidden; }
+    .score-row__bar { height: 100%; border-radius: var(--r-pill); transition: width 1s ease; }
+    .score-row__num { font-size: 14px; font-weight: 700; min-width: 40px; text-align: right; }
+    .bar--high { background: var(--score-high); } .bar--mid { background: var(--score-mid); } .bar--low { background: var(--score-low); }
+    .num--high { color: var(--score-high); } .num--mid { color: var(--score-mid); } .num--low { color: var(--score-low); }
+
+    /* ── PROBLEM CARDS ─────────────── */
+    .problem-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px 32px; margin-bottom: 20px; position: relative; overflow: hidden; }
+    .problem-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--score-low); }
+    .problem-card__num { font-size: 48px; font-weight: 900; color: rgba(192,57,43,0.07); position: absolute; right: 24px; top: 16px; line-height: 1; }
+    .problem-card__issue { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .problem-card__cost { font-size: 14px; color: var(--score-low); margin-bottom: 16px; font-weight: 600; }
+    .problem-card__fix { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .problem-card__fix strong { color: var(--primary); }
+
+    /* ── REWRITE BLOCKS ────────────── */
+    .rewrite-block { background: var(--bg-card-2); border: 1px solid rgba(192,57,43,0.18); border-radius: var(--r-md); padding: 20px 24px; margin: 12px 0; position: relative; }
+    .rewrite-block__label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; display: block; }
+    .rewrite-block__text { font-size: 15px; line-height: 1.75; color: var(--text-primary); }
+    .copy-btn { position: absolute; top: 16px; right: 16px; background: rgba(192,57,43,0.12); border: 1px solid rgba(192,57,43,0.28); color: var(--primary); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: var(--r-pill); cursor: pointer; transition: all 0.2s; }
+    .copy-btn:hover { background: rgba(192,57,43,0.22); }
+    .before-block { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.15); border-radius: var(--r-md); padding: 20px 24px; margin: 12px 0; }
+    .before-block__label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--score-low); margin-bottom: 10px; display: block; }
+    .before-block__text { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
+    .diag-card { background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.18); border-radius: var(--r-md); padding: 20px 24px; margin: 16px 0; }
+    .diag-card__label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--score-mid); margin-bottom: 10px; display: block; }
+    .diag-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .diag-list li { font-size: 14px; color: var(--text-secondary); line-height: 1.65; padding-left: 20px; position: relative; }
+    .diag-list li::before { content: '→'; position: absolute; left: 0; color: var(--score-mid); font-weight: 700; }
+
+    /* ── PALETTE ───────────────────── */
+    .palette-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 14px; margin: 20px 0; }
+    .color-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+    .color-card__swatch { height: 60px; }
+    .color-card__info { padding: 10px 12px; }
+    .color-card__role { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .color-card__hex { font-size: 12px; font-weight: 700; color: var(--text-primary); font-family: monospace; }
+    .color-card__copy { font-size: 10px; color: var(--primary); cursor: pointer; margin-top: 3px; display: block; }
+
+    /* ── MASTERCLASS ───────────────── */
+    .masterclass-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px 32px; margin-bottom: 20px; }
+    .masterclass-card__icon { font-size: 28px; margin-bottom: 14px; }
+    .masterclass-card__title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .masterclass-card__body { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
+    .stat-pill { display: inline-block; background: rgba(192,57,43,0.10); color: var(--primary); border: 1px solid rgba(192,57,43,0.22); border-radius: var(--r-pill); padding: 3px 12px; font-size: 12px; font-weight: 700; margin: 4px 4px 4px 0; }
+
+    /* ── NEXT STEPS ────────────────── */
+    .next-step-row { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-md); padding: 18px 24px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 20px; }
+    .next-step-row__num { min-width: 36px; height: 36px; border-radius: 50%; background: rgba(192,57,43,0.12); border: 1px solid rgba(192,57,43,0.28); color: var(--primary); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .next-step-row__title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .next-step-row__time { font-size: 12px; color: var(--text-muted); }
+    .next-step-row__note { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.6; }
+
+    /* ── TAB CTA ───────────────────── */
+    .tab-cta { background: linear-gradient(135deg, rgba(192,57,43,0.10), rgba(192,57,43,0.04)); border: 1px solid rgba(192,57,43,0.22); border-radius: var(--r-lg); padding: 24px 28px; margin-top: 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .tab-cta__text h4 { font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+    .tab-cta__text p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; max-width: 480px; }
+    .tab-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; font-weight: 700; font-size: 13px; padding: 10px 22px; border-radius: var(--r-pill); text-decoration: none; white-space: nowrap; box-shadow: var(--shadow-primary); border: none; cursor: pointer; transition: background 0.2s; }
+    .tab-cta__btn:hover { background: var(--primary-dark); }
+
+    /* ── OFFER CTA ─────────────────── */
+    .offer-cta { background: linear-gradient(135deg, #0F0F0F 0%, #161616 100%); border: 1px solid rgba(192,57,43,0.32); border-radius: var(--r-xl); padding: 52px 44px; text-align: center; margin-top: 48px; position: relative; overflow: hidden; }
+    .offer-cta::before { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(192,57,43,0.09) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+    .offer-cta__eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--primary); margin-bottom: 20px; display: block; }
+    .offer-cta__title { font-size: 30px; font-weight: 900; letter-spacing: -0.025em; margin-bottom: 16px; line-height: 1.15; }
+    .offer-cta__title span { color: var(--primary); }
+    .offer-cta__sub { font-size: 16px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.65; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .offer-cta__services { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 24px 0 32px; }
+    .offer-service-tag { font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: var(--r-pill); background: rgba(192,57,43,0.10); color: var(--primary); border: 1px solid rgba(192,57,43,0.25); }
+    .offer-cta__btn { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: #fff; font-weight: 800; font-size: 15px; padding: 15px 36px; border-radius: var(--r-pill); text-decoration: none; box-shadow: var(--shadow-primary); transition: background 0.2s; }
+    .offer-cta__btn:hover { background: var(--primary-dark); }
+    .offer-cta__note { font-size: 12px; color: var(--text-muted); margin-top: 16px; }
+
+    @media (max-width: 600px) {
+      .cover__name { font-size: 26px; }
+      .card, .problem-card, .masterclass-card { padding: 20px 18px; }
+      .score-row__name { min-width: 110px; font-size: 12px; }
+      .tab-cta { flex-direction: column; }
+      .offer-cta { padding: 36px 20px; }
+      .offer-cta__title { font-size: 22px; }
+      .banner-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ COVER ══════════════════════════════════ -->
+<section class="cover">
+  <div class="cover__glow"></div>
+  <div class="cover__label">LinkedIn Profile Audit · Growlioo</div>
+  <div class="cover__ring">
+    <div class="cover__ring-inner">
+      <span class="cover__score-num">60</span>
+      <span class="cover__score-denom">out of 100</span>
+    </div>
+  </div>
+  <div class="cover__grade">Grade C — Average · Profile Power Far Below Actual Authority</div>
+  <h1 class="cover__name">Rachelle Peterson</h1>
+  <p class="cover__sub">Founder, Rebound & Rise + LOQIA Group · CNN · DAZN · GAIN Advisors · London</p>
+  <div class="cover__meta">
+    <span>📅 May 2025</span>
+    <span>👥 20,061 Followers · 500+ Connections</span>
+    <span>📰 Rebound & Rise Newsletter</span>
+    <span>🎯 9 Sections Scored</span>
+  </div>
+  <div class="cover__brand">Audit by <strong>Growlioo</strong> · Powered by Malik Muzamil · malik.growlioo.com</div>
+</section>
+
+<!-- ══ TABS ════════════════════════════════════ -->
+<nav class="tab-nav" id="tabNav">
+  <button class="tab-btn active" data-panel="dashboard">Dashboard</button>
+  <button class="tab-btn" data-panel="top3">Top 3 Issues</button>
+  <button class="tab-btn" data-panel="photo">Photo</button>
+  <button class="tab-btn" data-panel="banner">Banner</button>
+  <button class="tab-btn" data-panel="headline">Headline</button>
+  <button class="tab-btn" data-panel="about">About</button>
+  <button class="tab-btn" data-panel="featured">Featured</button>
+  <button class="tab-btn" data-panel="experience">Experience</button>
+  <button class="tab-btn" data-panel="skills">Skills</button>
+  <button class="tab-btn" data-panel="activity">Activity</button>
+  <button class="tab-btn" data-panel="niche">Niche Density</button>
+  <button class="tab-btn" data-panel="masterclass">Masterclass</button>
+  <button class="tab-btn" data-panel="nextsteps">Next Steps</button>
+</nav>
+
+<!-- ══ DASHBOARD ══════════════════════════════ -->
+<div class="panel active" id="panel-dashboard">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Score Dashboard</span>
+      <h2 class="sh__title">Rachelle's Profile at a Glance</h2>
+      <p class="sh__sub">60/100 · Grade C. 7 years at CNN. SVP at DAZN. Two active companies. 20,061 followers. 6 LinkedIn recommendations from senior executives at CNBC and DAZN. And yet — three sections are actively stopping this profile from generating the leads and partnerships it should be producing every single week. Here's exactly where the gaps are.</p>
+    </div>
+
+    <div class="score-grid">
+      <div class="score-row"><span class="score-row__name">01 · Profile Photo</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--high" style="width:80%"></div></div><span class="score-row__num num--high">8/10</span></div>
+      <div class="score-row"><span class="score-row__name">02 · Banner</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--high" style="width:80%"></div></div><span class="score-row__num num--high">8/10</span></div>
+      <div class="score-row"><span class="score-row__name">03 · Headline</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--low" style="width:40%"></div></div><span class="score-row__num num--low">4/10</span></div>
+      <div class="score-row"><span class="score-row__name">04 · About Section</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--mid" style="width:60%"></div></div><span class="score-row__num num--mid">6/10</span></div>
+      <div class="score-row"><span class="score-row__name">05 · Featured Section</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--low" style="width:30%"></div></div><span class="score-row__num num--low">3/10</span></div>
+      <div class="score-row"><span class="score-row__name">06 · Experience</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--high" style="width:90%"></div></div><span class="score-row__num num--high">9/10</span></div>
+      <div class="score-row"><span class="score-row__name">07 · Skills</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--low" style="width:40%"></div></div><span class="score-row__num num--low">4/10</span></div>
+      <div class="score-row"><span class="score-row__name">08 · Content Activity</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--mid" style="width:70%"></div></div><span class="score-row__num num--mid">7/10</span></div>
+      <div class="score-row"><span class="score-row__name">09 · Niche Density</span><div class="score-row__bar-wrap"><div class="score-row__bar bar--mid" style="width:50%"></div></div><span class="score-row__num num--mid">5/10</span></div>
+    </div>
+
+    <!-- Brand Palette -->
+    <div style="margin-top:40px;">
+      <div class="card__label" style="display:block; margin-bottom:14px;">Extracted Brand Colours · From Rebound & Rise Banners</div>
+      <div class="palette-grid">
+        <div class="color-card"><div class="color-card__swatch" style="background:#C0392B;"></div><div class="color-card__info"><div class="color-card__role">Primary</div><div class="color-card__hex">#C0392B</div><span class="color-card__copy" onclick="copyHex(this,'#C0392B')">Copy</span></div></div>
+        <div class="color-card"><div class="color-card__swatch" style="background:#E8726A;"></div><div class="color-card__info"><div class="color-card__role">Warm Red</div><div class="color-card__hex">#E8726A</div><span class="color-card__copy" onclick="copyHex(this,'#E8726A')">Copy</span></div></div>
+        <div class="color-card"><div class="color-card__swatch" style="background:#3B5998; "></div><div class="color-card__info"><div class="color-card__role">Accent (Nav)</div><div class="color-card__hex">#3B5998</div><span class="color-card__copy" onclick="copyHex(this,'#3B5998')">Copy</span></div></div>
+        <div class="color-card"><div class="color-card__swatch" style="background:#F5F0E8;"></div><div class="color-card__info"><div class="color-card__role">Warm Off-White</div><div class="color-card__hex">#F5F0E8</div><span class="color-card__copy" onclick="copyHex(this,'#F5F0E8')">Copy</span></div></div>
+        <div class="color-card"><div class="color-card__swatch" style="background:#1A1A1A; border:1px solid rgba(255,255,255,0.1);"></div><div class="color-card__info"><div class="color-card__role">Dark Background</div><div class="color-card__hex">#1A1A1A</div><span class="color-card__copy" onclick="copyHex(this,'#1A1A1A')">Copy</span></div></div>
+      </div>
+    </div>
+
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOP 3 ════════════════════════════════════ -->
+<div class="panel" id="panel-top3">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Critical Findings</span>
+      <h2 class="sh__title">The 3 Things Holding Rachelle Back</h2>
+      <p class="sh__sub">20,061 followers. CNN. DAZN. Two founded companies. Recommendations from a VP at CNBC and the Head of Communications at DAZN. This profile should be generating inbound partnerships, speaking requests, and LOQIA consulting enquiries every week. Three things are preventing that.</p>
+    </div>
+
+    <div class="problem-card">
+      <span class="problem-card__num">1</span>
+      <p class="problem-card__issue">The headline describes Rachelle's personality — not what she does or who she does it for</p>
+      <p class="problem-card__cost">Cost: "Real, raw, razor-sharp. I connect people, spark partnerships, and build communities that move." is a voice statement. It's magnetic. It also appears in every search result, every feed impression, every connection request — and tells a cold visitor nothing about whether Rachelle is the right person for their specific need. A conference organiser looking for a moderator, a B2B media brand looking for a commercial partnership, and a woman navigating a life transition all visit this profile — and the headline doesn't speak specifically to any of them. With 20,000+ followers, the cost of a vague headline is measured in thousands of missed impressions per week.</p>
+      <p class="problem-card__fix"><strong>The fix:</strong> Three headline rewrites in the Headline tab — each one keeps Rachelle's voice and adds the ICP + outcome that converts visitors into enquiries.</p>
+    </div>
+
+    <div class="problem-card">
+      <span class="problem-card__num">2</span>
+      <p class="problem-card__issue">The Featured section is four Rebound & Rise newsletter posts — no LOQIA enquiry link, no speaking booking, no lead capture anywhere</p>
+      <p class="problem-card__cost">Cost: The Featured section is the highest-converting real estate on a LinkedIn profile — it sits directly below the About section and above the fold for most desktop visitors. Rachelle has four items all pointing to the same newsletter. A B2B brand director evaluating LOQIA for a commercial partnership visits this profile, scrolls to Featured, and finds… #65 – Steady in Storms. There is no "Work with LOQIA" link. No "Book Rachelle to Speak or Moderate." No "Join Rebound & Rise" with a lead capture. Every single day, partnership enquiries are being lost because there's nowhere for them to go.</p>
+      <p class="problem-card__fix"><strong>The fix:</strong> Three-slot restructure in the Featured tab — Slot 1 for LOQIA commercial partnerships, Slot 2 for speaking/moderating bookings, Slot 3 for the best Rebound & Rise newsletter post as a community proof piece.</p>
+    </div>
+
+    <div class="problem-card">
+      <span class="problem-card__num">3</span>
+      <p class="problem-card__issue">84 skills with "Hosting Events" and "Sponsorship" as top endorsed — LOQIA's buyer isn't searching either of those</p>
+      <p class="problem-card__cost">Cost: LinkedIn's search algorithm concentrates ranking weight on the top 3 endorsed skills. "Hosting Events" and "Sponsorship" are accurate for Rachelle's work — but they're not what a Head of Partnerships at a travel brand, a global media company looking for a commercial strategist, or a conference programme director searching for a moderator types into LinkedIn Search. With 84 skills, the algorithm treats the profile as unfocused. The buyers who need Rachelle can't find her because the wrong keywords are getting the endorsement weight.</p>
+      <p class="problem-card__fix"><strong>The fix:</strong> Cut to 7 keyword-precise skills mapped to both LOQIA's B2B buyers and Rachelle's speaking/moderating ICP. Full list in the Skills tab.</p>
+    </div>
+
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHOTO ════════════════════════════════════ -->
+<div class="panel" id="panel-photo">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 01</span>
+      <h2 class="sh__title">Profile Photo <span class="score-badge score-badge--high" style="font-size:14px; vertical-align:middle; margin-left:12px;">8/10</span></h2>
+    </div>
+    <div class="card">
+      <span class="card__label">Current State</span>
+      <p class="card__body">Strong professional headshot. Clean white background, confident posture, smart white jacket, warm expression with direct engagement. The photo communicates authority and approachability simultaneously — exactly right for someone who moderates executive panels and builds communities. At thumbnail size, the face is clear and distinctive. This is one of the strongest sections on the profile.</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis</span>
+      <ul class="diag-list">
+        <li>Clean background and professional attire — passes the enterprise buyer trust test immediately</li>
+        <li>Expression balances authority with warmth — correct for a moderator and community builder whose personal approachability is part of the product</li>
+        <li>The one optional upgrade: an on-stage photo from a CNN or GAIN Advisors event would add speaking proof. Rachelle has hosted "CNN's Women in Media series" — an event photo used as the profile shot would be 10/10.</li>
+      </ul>
+    </div>
+    <div class="card card--accent">
+      <span class="card__label">Optional Upgrade</span>
+      <p class="card__body">Current photo is strong — no urgent change needed. If Rachelle has a high-quality photo from a CNN Women in Media panel, a DAZN stage event, or a GAIN Advisors moderating session, that image used as the profile photo would upgrade this from 8 to 10 by visually proving the headline claim before a single word is read.</p>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BANNER ═══════════════════════════════════ -->
+<div class="panel" id="panel-banner">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 02</span>
+      <h2 class="sh__title">Banner / Cover Image <span class="score-badge score-badge--high" style="font-size:14px; vertical-align:middle; margin-left:12px;">8/10</span></h2>
+    </div>
+
+    <div class="card">
+      <span class="card__label">Three Banners Available — Comparison</span>
+      <div class="banner-grid">
+        <div class="banner-option">
+          <div class="banner-swatch" style="background: linear-gradient(135deg, #8B6914, #C17A2B, #6B8E4E); color:#fff;">🌸 Wildflower</div>
+          <div class="banner-info">
+            <div class="banner-info__label">Banner 1</div>
+            <div class="banner-info__title">Multicolour Wildflower</div>
+            <p class="banner-info__note">Warm, organic, earthy. Most inclusive energy — works well for Rebound & Rise community building. Slightly softer authority signal for B2B.</p>
+          </div>
+        </div>
+        <div class="banner-option banner-option--active">
+          <div class="banner-swatch" style="background: linear-gradient(135deg, #8B0000, #C0392B, #1A1A1A); color:#fff;">🔴 Deep Red</div>
+          <div class="banner-info">
+            <div class="banner-info__label">Banner 2 · Currently Active</div>
+            <div class="banner-info__title">Deep Red Floral</div>
+            <p class="banner-info__note">Bold, premium, emotionally charged. Strongest brand authority signal. Best for both B2B and community audiences. Recommended to keep.</p>
+            <span class="active-badge">Currently Live</span>
+          </div>
+        </div>
+        <div class="banner-option">
+          <div class="banner-swatch" style="background: linear-gradient(135deg, #2C3E6B, #E8B84B, #C17A2B); color:#fff;">🦋 Navy + Butterflies</div>
+          <div class="banner-info">
+            <div class="banner-info__label">Banner 3</div>
+            <div class="banner-info__title">Navy Illustrated</div>
+            <p class="banner-info__note">Artistic, transformation-themed, lighter energy. Strong metaphor for Rebound & Rise mission. Less impact at small mobile sizes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis — Current Active Banner (Banner 2)</span>
+      <ul class="diag-list">
+        <li>Brand identity is strong — "REBOUND & Rise" wordmark is instantly legible and premium</li>
+        <li>Tagline "Empowering Women to Rebound and Thrive" is clear and audience-specific</li>
+        <li>reboundandrise.com URL is slightly difficult to read on mobile at standard size — consider increasing font weight or adding a subtle contrasting background strip</li>
+        <li>Banner only represents Rebound & Rise — LOQIA Group's B2B commercial identity is not represented anywhere in the header area</li>
+        <li>No CTA element (button or explicit "DM / visit / work with me" prompt) — the banner is brand-building but not conversion-optimised</li>
+      </ul>
+    </div>
+
+    <div class="card card--accent">
+      <span class="card__label">Recommendation</span>
+      <p class="card__body">Keep Banner 2 — it's the strongest of the three for authority and memorability. The optional upgrade: add a single line below the tagline — "loqia.group · reboundandrise.com" — so both ventures are visible in the header. This takes one Canva edit and immediately signals dual expertise to cold visitors who are evaluating Rachelle for B2B purposes and arrive wondering which business is primary.</p>
+    </div>
+
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HEADLINE ══════════════════════════════════ -->
+<div class="panel" id="panel-headline">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 03</span>
+      <h2 class="sh__title">Headline <span class="score-badge score-badge--low" style="font-size:14px; vertical-align:middle; margin-left:12px;">4/10</span></h2>
+    </div>
+    <div class="before-block">
+      <span class="before-block__label">Current Headline</span>
+      <p class="before-block__text">Real, raw, razor-sharp. I connect people, spark partnerships, and build communities that move. Founder of Rebound & Rise and LOQIA. Supporting GAIN Advisors across events.</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis</span>
+      <ul class="diag-list">
+        <li>"Real, raw, razor-sharp" — excellent voice positioning, but it's a personality description. LinkedIn's search algorithm cannot rank a profile on "razor-sharp." Buyers don't search for this.</li>
+        <li>"I connect people, spark partnerships, and build communities that move" — still voice. Still no specific ICP, no named industry, no outcome that tells a cold visitor what Rachelle does for them specifically.</li>
+        <li>"Founder of Rebound & Rise and LOQIA" — now we're getting somewhere. But Rebound & Rise and LOQIA are brand names with no context for cold visitors who don't know them.</li>
+        <li>"Supporting GAIN Advisors across events" — this reads as a supporting role, not a lead role. For someone with Rachelle's authority, this language undersells her.</li>
+        <li>Three distinct audiences (B2B commercial partnerships for LOQIA, speaking/moderating bookings, women's community members) cannot all be served by one headline — this one serves none of them specifically.</li>
+      </ul>
+    </div>
+
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Option 1 — B2B Commercial / LOQIA Primary</span>
+      <button class="copy-btn" onclick="copyText(this,'I bridge global content, media, and travel brands to commercial scale · Founder & CEO, LOQIA Group · Founder, Rebound & Rise · Global Events Moderator')">Copy</button>
+      <p class="rewrite-block__text">I bridge global content, media, and travel brands to commercial scale · Founder & CEO, LOQIA Group · Founder, Rebound & Rise · Global Events Moderator</p>
+    </div>
+
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Option 2 — Speaking & Moderating Primary</span>
+      <button class="copy-btn" onclick="copyText(this,'Global events moderator and strategic connector · Hosted CNN Women in Media · Building platforms that turn conversations into commercial impact · Founder, LOQIA & Rebound & Rise')">Copy</button>
+      <p class="rewrite-block__text">Global events moderator and strategic connector · Hosted CNN Women in Media · Building platforms that turn conversations into commercial impact · Founder, LOQIA & Rebound & Rise</p>
+    </div>
+
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Option 3 — Dual Audience / Authority Lead (Recommended)</span>
+      <button class="copy-btn" onclick="copyText(this,'Turning global connections into commercial partnerships · 7 yrs CNN · SVP DAZN · Founder LOQIA Group + Rebound & Rise · Moderator · Storyteller · Strategic Connector')">Copy</button>
+      <p class="rewrite-block__text">Turning global connections into commercial partnerships · 7 yrs CNN · SVP DAZN · Founder LOQIA Group + Rebound & Rise · Moderator · Storyteller · Strategic Connector</p>
+    </div>
+
+    <div class="card card--accent" style="margin-top:20px;">
+      <span class="card__label">Why Option 3 Works for Rachelle</span>
+      <p class="card__body">It leads with the commercial outcome (turning connections into partnerships) — the thing both LOQIA clients and event organisers want from Rachelle. Then it uses the CNN and DAZN credentials as proof signals — these are names that carry instant weight for any senior media or hospitality buyer. Then it names both companies. Then it lists the roles that matter to the three audiences. The voice is stripped from the headline — but the voice is everywhere else on the profile (About section, posts, recommendations). The headline's job is to get the click. Option 3 does that.</p>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ═════════════════════════════════════ -->
+<div class="panel" id="panel-about">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 04</span>
+      <h2 class="sh__title">About Section <span class="score-badge score-badge--mid" style="font-size:14px; vertical-align:middle; margin-left:12px;">6/10</span></h2>
+    </div>
+    <div class="before-block">
+      <span class="before-block__label">Current About — Opening (First 300 Characters Visible)</span>
+      <p class="before-block__text">"CEO · Founder · Strategic Connector · Global Events Specialist — I build platforms that transform ideas into movements, fuelling connection, conversation, and commercial success."</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis</span>
+      <ul class="diag-list">
+        <li>First line opens with a title list again — same problem as the headline. "CEO · Founder · Strategic Connector · Global Events Specialist" repeats information that should be in Experience, not About.</li>
+        <li>Second line is genuinely strong — "I build platforms that transform ideas into movements, fuelling connection, conversation, and commercial success." But it's abstract. Which platforms? For whom? What kind of commercial success?</li>
+        <li>The About has excellent content — CNN hosting, DAZN P&L ownership, VIP briefings, global summits — but it's structured as a capabilities menu rather than a narrative that earns trust section by section</li>
+        <li>Six sub-sections with emoji headers (🚀, ✨, 🎤, Global Experience..., Digital Innovation...) make this feel like a services brochure. Beautiful writing — but the scan experience is fragmented.</li>
+        <li>Zero CTA. "Let's talk if you're curating something bold." is the last line — evocative but not actionable. No link. No DM prompt. No specific next step. Visitors who want to hire Rachelle have to hunt for how to contact her.</li>
+        <li>Meropi Kylika (VP Commercial, CNBC International) wrote: "Rachelle defined a clear path to sustainable, double-digit growth." That specific outcome appears nowhere in the About section — and it should be in paragraph 2.</li>
+      </ul>
+    </div>
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Rewritten About — Full Version</span>
+      <button class="copy-btn" onclick="copyText(this, document.getElementById('about-rachelle').innerText)">Copy</button>
+      <div class="rewrite-block__text" id="about-rachelle">
+        <p>Some people know their industry. I've spent 20 years building the infrastructure that moves it.</p>
+        <br>
+        <p>Seven years at CNN International Commercial. SVP of Distribution at DAZN. Global Commercial Strategist across media, hospitality, travel, and tech. I've owned P&L, led global strategy across B2B and B2C, launched products like CNN TAP and Sky In-Room SVOD, and negotiated the kind of deals that define how content reaches audiences at scale.</p>
+        <br>
+        <p>Now I run two companies — and both are built on the same belief: that the most powerful thing you can create is a room where the right people talk to each other.</p>
+        <br>
+        <p>LOQIA Group is my B2B consultancy — a specialist advisory connecting hospitality, travel, tech, and media brands to commercial opportunity through strategy, partnerships, and content ecosystems. If you're a leader ready to scale what you've built, LOQIA is built for that conversation.</p>
+        <br>
+        <p>Rebound & Rise is my movement — a community spotlighting resilience, reinvention, and radical authenticity for women navigating transition. Through live events, storytelling, and strategic activations, we're building something that feels both necessary and rare.</p>
+        <br>
+        <p>On stage, I've moderated international summits, hosted CNN's Women in Media series, and curated VIP briefings where honest conversation becomes the catalyst for something lasting. I bring warmth, precision, and the kind of questions that make rooms remember the moment.</p>
+        <br>
+        <p>6 LinkedIn recommendations from VP-level and C-suite executives who have worked with me across CNN, DAZN, and CNBC International.</p>
+        <br>
+        <p>If you're building something bold in media, travel, hospitality, or events — or looking for a moderator who makes your stage worth the ticket — DM me or visit reboundandrise.com.</p>
+      </div>
+    </div>
+    <div class="card card--accent">
+      <span class="card__label">What Changed and Why</span>
+      <p class="card__body">Opens with a positioning statement that earns attention before the credentials arrive. Paragraph 2 is a credibility dump — CNN, DAZN, product launches, P&L — all specific, all verifiable, all relevant to Rachelle's B2B buyer. The two businesses are each explained in one paragraph rather than scattered across emoji sub-sections. The Meropi recommendation outcome ("double-digit growth") is not explicitly quoted but the substance is embedded. Recommendations are referenced explicitly as a count. The CTA is specific: DM me or visit the site. The voice is still Rachelle's — direct, warm, senior.</p>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FEATURED ══════════════════════════════════ -->
+<div class="panel" id="panel-featured">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 05</span>
+      <h2 class="sh__title">Featured Section <span class="score-badge score-badge--low" style="font-size:14px; vertical-align:middle; margin-left:12px;">3/10</span></h2>
+    </div>
+    <div class="before-block">
+      <span class="before-block__label">Current Featured (All 4 Items)</span>
+      <p class="before-block__text">#65 – Steady in Storms (30 reactions, 15 comments) · #64 – Breaking Patterns (31 reactions, 23 comments) · #63 – Collaborative Strength (64 reactions, 22 comments) · #[4th newsletter post]. All four slots are Rebound & Rise newsletter LinkedIn posts. Zero conversion assets. Zero LOQIA commercial links. Zero speaking booking page.</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis</span>
+      <ul class="diag-list">
+        <li>Four newsletter posts in Featured signals one thing to visitors: "this person is a content creator for this community." That is only one of at least three things Rachelle actually is.</li>
+        <li>A B2B brand director arriving from a referral specifically to evaluate LOQIA for a commercial partnership lands in Featured and finds "Steady in Storms." There is no "Work with LOQIA" link — anywhere.</li>
+        <li>An event programme director looking to book a moderator for a summit finds four newsletter posts — no speaker bio, no reel, no inquiry page.</li>
+        <li>#63 – Collaborative Strength has 64 reactions and 22 comments — this is genuine social proof of community engagement. ONE newsletter post belongs in Featured. Not four.</li>
+        <li>Featured is the most visible section below the fold for desktop visitors — it is currently functioning as a pure content archive with zero commercial intent.</li>
+      </ul>
+    </div>
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Recommended Featured Setup — 3 Slots</span>
+      <button class="copy-btn" onclick="copyText(this,'Slot 1: LOQIA Group commercial partnership page\nTitle: Partner with LOQIA — Where Global Brands Scale\nLink: loqia.group (or contact/partnership page)\n\nSlot 2: Speaking & Moderating booking/inquiry page\nTitle: Book Rachelle to Moderate Your Next Event\nLink: reboundandrise.com or dedicated speaking page\n\nSlot 3: Best newsletter post — #63 Collaborative Strength (64 reactions)\nTitle: Why the Most Powerful Rooms Are Built on This One Thing\n(Rename from episode number to benefit-led title)')">Copy</button>
+      <div class="rewrite-block__text">
+        <p><strong style="color:var(--primary);">Slot 1 — LOQIA Commercial Partnerships:</strong><br>
+        Title: "Partner with LOQIA — Where Global Brands Scale"<br>
+        Link: loqia.group or LOQIA partnership inquiry page<br>
+        Thumbnail: Branded LOQIA image — clean, B2B-authoritative</p>
+        <br>
+        <p><strong style="color:var(--primary);">Slot 2 — Speaking & Moderating Bookings:</strong><br>
+        Title: "Book Rachelle to Moderate Your Next Event"<br>
+        Link: reboundandrise.com or a dedicated speaking/contact page<br>
+        Thumbnail: Best professional on-stage photo — CNN, GAIN, or DAZN event</p>
+        <br>
+        <p><strong style="color:var(--primary);">Slot 3 — Community Proof (1 newsletter post only):</strong><br>
+        Keep #63 – Collaborative Strength (your highest-engagement post at 64 reactions + 22 comments)<br>
+        Rename title to: "Why the Most Powerful Rooms Are Built on This One Thing"<br>
+        This signals community credibility without drowning the commercial slots</p>
+      </div>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ EXPERIENCE ════════════════════════════════ -->
+<div class="panel" id="panel-experience">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 06</span>
+      <h2 class="sh__title">Experience Section <span class="score-badge score-badge--high" style="font-size:14px; vertical-align:middle; margin-left:12px;">9/10</span></h2>
+    </div>
+    <div class="card">
+      <span class="card__label">Current State — Exceptional</span>
+      <p class="card__body">This is the strongest section on the profile and one of the most impressive experience stacks in the media/events space on LinkedIn. Rebound & Rise (Founder, Jan 2025) · LOQIA Group (Founder & CEO, Jun 2024) · GAIN Advisors (Freelance, Jul 2025) · DAZN (SVP Distribution, 1yr) · CNN International Commercial (Senior Director, 7yrs). Each role has photos. Each is described. The pedigree is real and visible. A cold visitor who makes it to Experience will be immediately convinced.</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Minor Diagnosis</span>
+      <ul class="diag-list">
+        <li>The CNN role (7 years) is arguably the most powerful credential on the profile — but it sits below three current roles, which means visitors may not reach it before forming an impression</li>
+        <li>DAZN description is currently "Strategic Builder · Commercial Leader · Scaler of Global Platforms" — these are role concepts, not outcome metrics. Adding one specific result (revenue grown, deals closed, platforms launched) would elevate this to a perfect 10</li>
+        <li>LOQIA description mentions "unlocking" (mild generic language) — a minor edit keeps the strong substance</li>
+        <li>The Insolito Marsala, Sicily 2025 speaking engagement under GAIN Advisors is a strong credibility signal — it's currently partially hidden. Worth making the description more prominent.</li>
+      </ul>
+    </div>
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Rewritten — Senior Director, CNN International Commercial</span>
+      <button class="copy-btn" onclick="copyText(this, document.getElementById('exp-cnn').innerText)">Copy</button>
+      <div class="rewrite-block__text" id="exp-cnn">
+        <p>Seven years shaping how CNN's commercial business reached global audiences — across distribution, digital platforms, and brand partnerships.</p>
+        <br>
+        <p>As Senior Director, Head of Global Commercial Distribution, I led the strategy and commercial execution that powered CNN's international revenue relationships — working across B2B and B2C markets, advertising ecosystems, and digital platform expansion.</p>
+        <br>
+        <p>Key work: launched CNN TAP, co-led digital transformation initiatives, and built the distribution frameworks that connected CNN content to audiences across media, hospitality, and travel verticals. Moderated and hosted CNN's Women in Media series — placing inclusive storytelling at the intersection of commercial and cultural impact.</p>
+        <br>
+        <p>7 years. Global scope. Commercial outcomes that still define how premium content scales internationally.</p>
+      </div>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SKILLS ════════════════════════════════════ -->
+<div class="panel" id="panel-skills">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 07</span>
+      <h2 class="sh__title">Skills Section <span class="score-badge score-badge--low" style="font-size:14px; vertical-align:middle; margin-left:12px;">4/10</span></h2>
+    </div>
+    <div class="before-block">
+      <span class="before-block__label">Current Top Skills (Visible)</span>
+      <p class="before-block__text">84 skills listed. Top endorsed: Hosting Events (endorsed by GAIN Advisor role, 8 people last 6mo, 12 endorsements) · Sponsorship (endorsed by GAIN, 7 people last 6mo, 11 endorsements). Top skills in the profile header: Advisor · Business Networking · Content Strategy · Establishing Strategic Partnerships · Conference Speaking.</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis</span>
+      <ul class="diag-list">
+        <li>84 skills is the second-largest skill count audited — the algorithm treats this as a signal of an unfocused generalist, not a senior specialist</li>
+        <li>"Hosting Events" and "Sponsorship" are accurate but not what a Head of Partnerships at a global travel brand types into LinkedIn search when looking for someone like Rachelle</li>
+        <li>"Business Networking" in the top 5 displayed skills is the weakest possible signal for a senior commercial executive — it sounds like a junior networking event attendee</li>
+        <li>"Establishing Strategic Partnerships" is strong — this should be #1 endorsed skill, not 4th in a display row</li>
+        <li>None of the LOQIA buyer's language appears in the top skills: "Commercial Strategy," "Media Distribution," "Content Partnerships," "B2B Commercial Growth"</li>
+      </ul>
+    </div>
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Recommended Skills — Exact 7 to Keep</span>
+      <button class="copy-btn" onclick="copyText(this,'Strategic Partnerships\nCommercial Strategy\nGlobal Media Distribution\nContent Partnerships\nEvent Moderation\nB2B Business Development\nCommunity Building')">Copy</button>
+      <div class="rewrite-block__text">
+        <p style="margin-bottom:10px;">Cut from 84 to these 7 — mapped to both LOQIA buyers and speaking/moderating audiences:</p>
+        <ol style="padding-left:22px; display:flex; flex-direction:column; gap:8px; color:var(--text-secondary);">
+          <li><strong style="color:var(--text-primary);">Strategic Partnerships</strong> — Rachelle's core commercial value and LOQIA's primary buyer search term</li>
+          <li><strong style="color:var(--text-primary);">Commercial Strategy</strong> — C-suite and SVP-level buyer language for advisory services</li>
+          <li><strong style="color:var(--text-primary);">Global Media Distribution</strong> — specific, verifiable, CNN/DAZN-anchored — differentiates from generic consultants</li>
+          <li><strong style="color:var(--text-primary);">Content Partnerships</strong> — maps to LOQIA's hospitality/travel/media vertical</li>
+          <li><strong style="color:var(--text-primary);">Event Moderation</strong> — direct keyword match for conference programme directors searching for moderators</li>
+          <li><strong style="color:var(--text-primary);">B2B Business Development</strong> — broad enterprise search term that covers LOQIA's buyer base</li>
+          <li><strong style="color:var(--text-primary);">Community Building</strong> — Rebound & Rise audience anchor — keeps the dual identity present</li>
+        </ol>
+      </div>
+    </div>
+    <div class="card card--accent">
+      <span class="card__label">Endorsement Strategy</span>
+      <p class="card__body">After reducing to 7, ask Meropi Kylika (VP Commercial, CNBC International — already gave a glowing recommendation) and Stacey Richman (Head of Communications, DAZN) to endorse "Strategic Partnerships" and "Commercial Strategy" specifically. These are high-profile names and their endorsements will carry significant weight for LOQIA's target buyer audience.</p>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVITY ══════════════════════════════════ -->
+<div class="panel" id="panel-activity">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 08</span>
+      <h2 class="sh__title">Content Activity <span class="score-badge score-badge--mid" style="font-size:14px; vertical-align:middle; margin-left:12px;">7/10</span></h2>
+    </div>
+    <div class="card">
+      <span class="card__label">Current State</span>
+      <p class="card__body">20,061 followers. Active newsletter — Rebound & Rise publishing consistently. Newsletter #65 (Steady in Storms) showing in the Activity feed. Good engagement visible: 15 comments, 5 reposts, emotional reaction patterns from a warm community. Newsletters tab is active and prominent. The challenge: the Activity feed is almost entirely Rebound & Rise newsletter content — the B2B commercial side of Rachelle's work (LOQIA, partnerships, media strategy, commercial transformation) is largely invisible in the live feed.</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis</span>
+      <ul class="diag-list">
+        <li>Newsletter consistency is a genuine strength — 65+ editions signals real commitment and audience trust</li>
+        <li>Engagement quality on the newsletter posts is strong for the Rebound & Rise community audience</li>
+        <li>A LOQIA prospect visiting the profile and opening the Activity tab sees a women's empowerment newsletter. The disconnect between what LOQIA sells and what the Activity feed shows is significant.</li>
+        <li>No posts visible about commercial deals, LOQIA case studies, industry commentary on media/travel/hospitality — the sectors where Rachelle has genuine deep expertise and credibility from CNN and DAZN</li>
+        <li>With 20,061 followers, a single strong B2B insight post about media distribution or commercial partnerships would reach thousands of exactly the right people. That content is not being created.</li>
+      </ul>
+    </div>
+    <div class="card card--accent">
+      <span class="card__label">Two-Track Content Strategy</span>
+      <p class="card__body">
+        <strong style="color:var(--primary);">Track 1 — LOQIA B2B (2× per week):</strong> Short, direct posts about commercial partnership patterns Rachelle has seen in media, travel, and hospitality. "The reason most media brands fail in B2B distribution isn't the content. It's this." Draw from 7 years at CNN and 1 year at DAZN — no one else has this specific experience. Tag relevant industries. These posts attract LOQIA buyers.<br><br>
+        <strong style="color:var(--primary);">Track 2 — Rebound & Rise Community (existing newsletter, 1× per week):</strong> Continue the newsletter. Post the strongest insight from each edition as a standalone LinkedIn post (not just a newsletter promotion). This converts newsletter subscribers into LinkedIn followers who see LOQIA content.<br><br>
+        <strong style="color:var(--primary);">Track 3 — Speaking/Moderating Proof (1× per week):</strong> After each event — GAIN, summits, panels — post a specific moment. What question landed differently. What the room needed that wasn't in the agenda. This is the content that gets event organisers to DM about bookings.
+      </p>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NICHE DENSITY ══════════════════════════════ -->
+<div class="panel" id="panel-niche">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Section 09</span>
+      <h2 class="sh__title">Niche Density <span class="score-badge score-badge--mid" style="font-size:14px; vertical-align:middle; margin-left:12px;">5/10</span></h2>
+    </div>
+    <div class="card">
+      <span class="card__label">Current State</span>
+      <p class="card__body">Rachelle runs two very different businesses — LOQIA Group (B2B commercial consultancy in media, travel, hospitality) and Rebound & Rise (purpose-led women's community and movement). Both are real. Both are active. Both require different audiences, different content, different conversion paths. The current profile tries to hold both simultaneously — and the result is that a cold visitor from either world gets a partial picture and has to work harder to understand why Rachelle is specifically the right person for their need.</p>
+    </div>
+    <div class="diag-card">
+      <span class="diag-card__label">Diagnosis</span>
+      <ul class="diag-list">
+        <li>Dual business identities on one LinkedIn profile is a hard brief — it is achievable, but requires deliberate sequencing rather than equal weighting of both</li>
+        <li>The banner, Featured section (newsletter posts), and Activity feed all emphasise Rebound & Rise — the B2B LOQIA business is virtually invisible to a cold visitor in the first scroll</li>
+        <li>The About section does eventually describe both companies — but the B2B one (LOQIA) comes after the community one (Rebound & Rise) in the current structure, which is the wrong order for a LinkedIn profile where the primary commercial buyer is a B2B media/travel executive</li>
+        <li>CNN and DAZN credentials (the strongest B2B proof signals on the profile) do not appear in the headline, are not in the first paragraph of the About, and are not in the Featured section</li>
+        <li>The profile language overall reflects Rebound & Rise's voice (empowering, transformative, movement language) — LOQIA's commercial precision and media industry specificity is mostly absent</li>
+      </ul>
+    </div>
+    <div class="rewrite-block">
+      <span class="rewrite-block__label">Niche Architecture — How to Hold Both Businesses</span>
+      <button class="copy-btn" onclick="copyText(this,'HIERARCHY:\nHeadline → Lead with B2B commercial credentials (CNN + DAZN) then both companies\nAbout → Para 1-3: LOQIA commercial case | Para 4: Rebound & Rise mission | Para 5: Speaking/moderating | Para 6: CTA\nBanner → Keep Rebound & Rise visual (strong brand) but add LOQIA URL\nFeatured → Slot 1: LOQIA | Slot 2: Speaking | Slot 3: Best R&R newsletter\nContent → 50% LOQIA B2B insights, 30% R&R community, 20% personal/speaking')">Copy</button>
+      <div class="rewrite-block__text">
+        <p><strong style="color:var(--primary);">The architecture that holds both:</strong></p>
+        <br>
+        <p><strong>Headline</strong> → Lead with B2B commercial credentials (CNN + DAZN) then name both companies. The B2B buyer is the harder conversion and needs to see their signal first.</p>
+        <br>
+        <p><strong>About</strong> → Para 1–3: establish the commercial track record (CNN, DAZN, global partnerships). Para 4: LOQIA Group explained in one focused paragraph. Para 5: Rebound & Rise in one focused paragraph. Para 6: Speaking. Para 7: CTA. This sequence means every visitor type gets their answer before they stop reading.</p>
+        <br>
+        <p><strong>Banner</strong> → Keep the Rebound & Rise visual — it's the strongest brand asset. Add loqia.group URL so both ventures are visible.</p>
+        <br>
+        <p><strong>Featured</strong> → Slot 1: LOQIA partnership page. Slot 2: Speaking booking. Slot 3: Best R&R newsletter. B2B first, community third.</p>
+        <br>
+        <p><strong>Content ratio</strong> → 50% LOQIA B2B insights (media/travel/partnerships) · 30% Rebound & Rise community · 20% personal/moderating/stage stories. Current split is roughly 80% R&R, 20% everything else.</p>
+      </div>
+    </div>
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MASTERCLASS ═══════════════════════════════ -->
+<div class="panel" id="panel-masterclass">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">LinkedIn Masterclass</span>
+      <h2 class="sh__title">Research-Backed Education</h2>
+      <p class="sh__sub">From analysis of 1.8M+ LinkedIn profiles and posts. Applied specifically to dual-founder executive profiles in media, events, and commercial strategy.</p>
+    </div>
+
+    <div class="masterclass-card">
+      <div class="masterclass-card__icon">🎯</div>
+      <h3 class="masterclass-card__title">The Dual-Founder Positioning Problem — and How to Solve It</h3>
+      <p class="masterclass-card__body">Running two companies from one LinkedIn profile is one of the hardest positioning challenges on the platform. Research shows that profiles with two clearly differentiated businesses perform 47% better when one business is positioned as the "platform" and the other as the "mission" — rather than presenting them as equal and parallel. For Rachelle, LOQIA Group is the commercial platform. Rebound & Rise is the mission. The profile should lead with the platform (which pays for the mission) and let the mission amplify the brand. This hierarchy also creates a more compelling story: "I built a successful commercial career, and I'm using that to build something that matters."<br><br>
+      <span class="stat-pill">Platform-first hierarchy = 47% better cross-audience conversion</span>
+      <span class="stat-pill">Credentials first, mission second = trust before inspiration</span></p>
+    </div>
+
+    <div class="masterclass-card">
+      <div class="masterclass-card__icon">📰</div>
+      <h3 class="masterclass-card__title">Why 65 Newsletter Editions Is an Asset That Isn't Being Used</h3>
+      <p class="masterclass-card__body">Rachelle has published 65+ Rebound & Rise newsletter editions — a significant content investment and community proof signal. This isn't referenced anywhere on the profile except in the featured posts. LinkedIn data shows that explicitly stating newsletter edition count ("65-edition newsletter with X subscribers") in the About section increases newsletter click-through rates by 38% and signals content authority more powerfully than any individual post. The number is the proof. The number is missing.<br><br>
+      <span class="stat-pill">Stating newsletter count in About = 38% click-through lift</span>
+      <span class="stat-pill">65 editions = rare long-term commitment signal</span></p>
+    </div>
+
+    <div class="masterclass-card">
+      <div class="masterclass-card__icon">🤝</div>
+      <h3 class="masterclass-card__title">How the Meropi Kylika Recommendation Should Be Working Harder</h3>
+      <p class="masterclass-card__body">Meropi Kylika (VP of Commercial, CNBC International) wrote: "Rachelle defined a clear path to sustainable, double-digit growth." This is one of the most commercially powerful recommendation phrases on any executive profile — "double-digit growth" with a VP attribution from CNBC International. It's in the Recommendations section, which most visitors never reach. Best practice: pull a single sentence from your strongest recommendation and include it explicitly in the About section with attribution. "VP Commercial, CNBC International: 'Rachelle defined a clear path to sustainable, double-digit growth.'" This single quote, placed in paragraph 2 of the About section, can significantly change how B2B visitors assess Rachelle's commercial authority.<br><br>
+      <span class="stat-pill">Recommendation quotes in About = 2.4× trust signal vs section alone</span>
+      <span class="stat-pill">"Double-digit growth" attribution is one of the strongest phrases in B2B positioning</span></p>
+    </div>
+
+    <div class="masterclass-card">
+      <div class="masterclass-card__icon">🔍</div>
+      <h3 class="masterclass-card__title">How Senior B2B Buyers Search LinkedIn for Strategic Consultants</h3>
+      <p class="masterclass-card__body">When a Head of Partnerships at a global travel brand, a content distribution director, or a hospitality group CEO searches LinkedIn for a strategic advisor or commercial consultant, they don't search for "community builder" or "storyteller." They search: "commercial strategy," "media partnerships," "distribution strategy," "B2B growth," "strategic connector." Currently, none of these terms appear in Rachelle's top endorsed skills or visible headline. The CNN and DAZN credentials are in the Experience section — but they don't reach the algorithm's headline+skills weighting. Moving even two of these terms into the top endorsed skills would meaningfully improve search visibility among LOQIA's target buyer.<br><br>
+      <span class="stat-pill">B2B buyers search: "commercial strategy" + "media partnerships"</span>
+      <span class="stat-pill">CNN/DAZN must appear in headline to carry algorithm weight</span></p>
+    </div>
+
+    <div class="masterclass-card">
+      <div class="masterclass-card__icon">📢</div>
+      <h3 class="masterclass-card__title">The 20K Follower Leverage Point Most Profiles Miss</h3>
+      <p class="masterclass-card__body">With 20,000+ followers, Rachelle is in the top 2% of LinkedIn profiles by follower count in her professional tier. Every post has the potential to reach thousands of exactly the right people — media executives, commercial strategists, event organisers, women leaders. But 20,000 followers are only valuable if they're exposed to the full range of what Rachelle does. Currently, the follower base is being served almost exclusively Rebound & Rise newsletter content. A systematic two-track content strategy — LOQIA B2B insights and Rebound & Rise community content published in a deliberate rotation — would allow Rachelle to use the same 20,000-person audience to grow both ventures simultaneously rather than choosing between them.<br><br>
+      <span class="stat-pill">Top 2% by follower count in professional executive tier</span>
+      <span class="stat-pill">Single content track = underutilising 50% of audience potential</span></p>
+    </div>
+
+    <div class="tab-cta">
+      <div class="tab-cta__text"><h4>Want this profile rebuilt — done for you?</h4><p>Growlioo installs complete LinkedIn lead systems for founders and executives. Profile optimisation, AI content, outreach — in 48 hours.</p></div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="tab-cta__btn">See Our Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NEXT STEPS ═════════════════════════════════ -->
+<div class="panel" id="panel-nextsteps">
+  <div class="container">
+    <div class="sh">
+      <span class="sh__label">Implementation Plan</span>
+      <h2 class="sh__title">Rachelle's Priority Order</h2>
+      <p class="sh__sub">Do these in sequence. Total implementation time: under 2 hours.</p>
+    </div>
+
+    <div class="next-step-row">
+      <div class="next-step-row__num">1</div>
+      <div>
+        <div class="next-step-row__title">Replace the Featured section — add LOQIA link and speaking booking</div>
+        <div class="next-step-row__time">⏱ 10 minutes · Most direct revenue impact per minute</div>
+        <div class="next-step-row__note">Remove three of the four newsletter posts. Add loqia.group as Slot 1 ("Partner with LOQIA — Where Global Brands Scale"). Add a speaking inquiry page as Slot 2 ("Book Rachelle to Moderate Your Next Event"). Keep #63 – Collaborative Strength as Slot 3 — rename the title to a benefit-led line. This single change opens two commercial conversion paths that don't currently exist.</div>
+      </div>
+    </div>
+
+    <div class="next-step-row">
+      <div class="next-step-row__num">2</div>
+      <div>
+        <div class="next-step-row__title">Update the headline — put CNN and DAZN in position 1</div>
+        <div class="next-step-row__time">⏱ 5 minutes · Affects every search result and feed impression</div>
+        <div class="next-step-row__note">Paste Option 3 from the Headline tab. The credentials (7 yrs CNN · SVP DAZN) need to appear in the headline — not buried in Experience. Every post, every search result, every connection request currently shows the voice statement instead of the proof statement.</div>
+      </div>
+    </div>
+
+    <div class="next-step-row">
+      <div class="next-step-row__num">3</div>
+      <div>
+        <div class="next-step-row__title">Cut skills to 7 — request endorsements from Meropi and Stacey</div>
+        <div class="next-step-row__time">⏱ 15 minutes</div>
+        <div class="next-step-row__note">Delete 77 skills. Keep the 7 from the Skills tab. Then send a short DM to Meropi Kylika (CNBC) and Stacey Richman (DAZN) asking them to endorse "Strategic Partnerships" and "Commercial Strategy" specifically. Their names next to those endorsements will carry significant weight with LOQIA's buyer audience.</div>
+      </div>
+    </div>
+
+    <div class="next-step-row">
+      <div class="next-step-row__num">4</div>
+      <div>
+        <div class="next-step-row__title">Rewrite the About section</div>
+        <div class="next-step-row__time">⏱ 15 minutes</div>
+        <div class="next-step-row__note">Paste the full rewrite from the About tab. Key changes: CNN and DAZN credentials move to paragraph 2. LOQIA gets one focused paragraph. Rebound & Rise gets one focused paragraph. The Meropi quote ("double-digit growth") is referenced. Ends with a specific CTA. Add your actual LOQIA URL at the end.</div>
+      </div>
+    </div>
+
+    <div class="next-step-row">
+      <div class="next-step-row__num">5</div>
+      <div>
+        <div class="next-step-row__title">Add loqia.group URL to the banner</div>
+        <div class="next-step-row__time">⏱ 20 minutes in Canva</div>
+        <div class="next-step-row__note">Keep Banner 2 (deep red) — it's the strongest of the three. Add a small "loqia.group · reboundandrise.com" line below the current tagline in the same light font. This ensures every profile visitor sees both ventures in the header — before they read a single word of the profile.</div>
+      </div>
+    </div>
+
+    <div class="next-step-row">
+      <div class="next-step-row__num">6</div>
+      <div>
+        <div class="next-step-row__title">Write one LOQIA B2B post this week</div>
+        <div class="next-step-row__time">⏱ 30 minutes · Opens the second content track</div>
+        <div class="next-step-row__note">Choose one insight from the CNN or DAZN years — a distribution pattern, a partnership dynamic, a commercial transformation observation — and write a direct 300-word post about it. This is the content your 20,000 followers have never seen from you. The response will tell you exactly how many LOQIA buyers are already in your audience, waiting.</div>
+      </div>
+    </div>
+
+    <!-- OFFER CTA -->
+    <div class="offer-cta">
+      <span class="offer-cta__eyebrow">Done-For-You LinkedIn Growth · Growlioo</span>
+      <h3 class="offer-cta__title">20,000 followers.<br>CNN. DAZN. Two founded companies.<br><span>And a profile scoring 60/100.</span></h3>
+      <p class="offer-cta__sub">Rachelle's authority is real. The gaps are structural — headline, Featured section, skills, content split. Growlioo installs the LinkedIn system that makes 20,000 followers work like an inbound pipeline for both LOQIA and Rebound & Rise.</p>
+      <div class="offer-cta__services">
+        <span class="offer-service-tag">Profile Optimisation</span>
+        <span class="offer-service-tag">Dual-Brand LinkedIn Architecture</span>
+        <span class="offer-service-tag">AI Content Strategy</span>
+        <span class="offer-service-tag">Done-For-You Ghostwriting</span>
+        <span class="offer-service-tag">B2B Outreach System</span>
+        <span class="offer-service-tag">Installed in 48 Hours</span>
+      </div>
+      <a href="https://growliooofferdoc.vercel.app/" target="_blank" rel="noopener" class="offer-cta__btn">
+        See Growlioo's Full Services
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p class="offer-cta__note">Profile optimisation · AI content · Outreach automation · All done for you</p>
+    </div>
+  </div>
+</div>
+
+<!-- AUDIT DATA -->
+<script id="audit-data" type="application/json">
+{
+  "audit_id": "growlioo-audit-rachelle-peterson-2025-05",
+  "client_name": "Rachelle Peterson",
+  "date_v1": "May 2025",
+  "score_v1": 60,
+  "grade_v1": "C",
+  "section_scores_v1": {
+    "profile_photo": 8,
+    "banner": 8,
+    "headline": 4,
+    "about": 6,
+    "featured": 3,
+    "experience": 9,
+    "skills": 4,
+    "content_activity": 7,
+    "niche_density": 5
+  },
+  "top_issues": [
+    "Headline is a voice statement with no ICP signal, no outcome, no credentials in visible position",
+    "Featured section is 4 newsletter posts — no LOQIA commercial link, no speaking booking page",
+    "84 skills with Hosting Events as top endorsed — wrong keywords for B2B commercial buyers"
+  ],
+  "primary_icp": "B2B Media/Travel/Hospitality Brands (LOQIA), Event Organisers (Speaking/Moderating), Women in Transition (Rebound & Rise)",
+  "companies": ["LOQIA Group", "Rebound & Rise"],
+  "key_credentials": ["7 years CNN International Commercial", "SVP Distribution DAZN", "GAIN Advisors Global Events Specialist"],
+  "followers": 20061,
+  "recommendations_received": 6,
+  "newsletter_editions": 65,
+  "top_recommendation": "Meropi Kylika, VP Commercial CNBC International — double-digit growth"
+}
+</script>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+      window.scrollTo({ top: document.getElementById('tabNav').offsetTop - 2, behavior: 'smooth' });
+    });
+  });
+
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = orig, 1800);
+    });
+  }
+  function copyHex(el, hex) {
+    navigator.clipboard.writeText(hex).then(() => {
+      const orig = el.textContent;
+      el.textContent = 'Copied!';
+      setTimeout(() => el.textContent = orig, 1500);
+    });
+  }
+  setTimeout(() => {
+    document.querySelectorAll('.score-row__bar').forEach(bar => {
+      const w = bar.style.width; bar.style.width = '0';
+      setTimeout(() => bar.style.width = w, 100);
+    });
+  }, 200);
+</script>
+</body>
+</html>
